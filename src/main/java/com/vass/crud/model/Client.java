@@ -1,5 +1,6 @@
 package com.vass.crud.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,6 +31,7 @@ public class Client {
     private String email;
 
     @Column(name = "birth_date")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date birthDate;
 
 }
