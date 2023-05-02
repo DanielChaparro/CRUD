@@ -9,18 +9,18 @@
         <insert tableName="clients">
             <column name="id" value="1"/>
             <column name="name" value="Carlos"/>
-            <column name="lastname" value="Sanchez"/>
+            <column name="last_name" value="Sanchez"/>
             <column name="identification" value="13356344"/>
             <column name="email" value="test@test.com"/>
-            <column name="birthdate" value="1990-01-01"/>
+            <column name="birth_date" value="1990-01-01"/>
         </insert>
         <insert tableName="clients">
             <column name="id" value="2"/>
             <column name="name" value="Juan"/>
-            <column name="lastname" value="Perez"/>
+            <column name="last_name" value="Perez"/>
             <column name="identification" value="5434323"/>
             <column name="email" value="test@test.com"/>
-            <column name="birthdate" value="1992-05-10"/>
+            <column name="birth_date" value="1992-05-10"/>
         </insert>
     </changeSet>
 </databaseChangeLog>
