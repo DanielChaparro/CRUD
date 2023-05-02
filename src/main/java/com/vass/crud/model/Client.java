@@ -4,15 +4,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "clients")
-@Getter
-@Setter
-@EqualsAndHashCode
-@ToString
-public class Client {
+@Data
+@NoArgsConstructor
+public class Client implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
