@@ -9,7 +9,7 @@ In case Liquibase fails to persist the initial information, there is an import.s
 
 #### Requirements
 * Java 11
-* Maven
+* Maven v2.7.11
 ### Setup
 
 * Clone the repository to your local machine.
