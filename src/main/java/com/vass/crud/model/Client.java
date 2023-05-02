@@ -1,17 +1,18 @@
 package com.vass.crud.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "clients")
-@Getter
-@Setter
-@EqualsAndHashCode
-@ToString
-public class Client {
+@Data
+@NoArgsConstructor
+public class Client implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +31,11 @@ public class Client {
     private String email;
 
     @Column(name = "birth_date")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date birthDate;
+
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private User user;
 
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <include file="classpath:db/changelog/changes/20230430171704_added_entity_Client.xml"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:db/changelog/changes/20230430181005_added_entity_User.xml"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:db/changelog/changes/20230430181502_added_entity_Role.xml"
+             relativeToChangelogFile="false"/>
+     <include file="classpath:db/changelog/changes/20230430182006_added_entity_User_Role.xml"
+             relativeToChangelogFile="false"/>
+    <include file="classpath:db/changelog/data/20230430183000_insert_roles_table_changelog.xml"/>
+    <include file="classpath:db/changelog/data/20230430184000_insert_users_table_changelog.xml"/>
+    <include file="classpath:db/changelog/data/20230430185000_insert_clients_table_changelog.xml"/>
+    <include file="classpath:db/changelog/data/20230430190000_insert_roles_users_table_changelog.xml"/>
+</databaseChangeLog>
