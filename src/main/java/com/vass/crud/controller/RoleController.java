@@ -54,8 +54,8 @@ public class RoleController {
     }
 
     @GetMapping(value = "/find_role/{name}")
-    private ResponseEntity<Role> findRoleName(@PathVariable String name) throws RoleNotFoundException {
-        Role role = roleService.findRoleName(name);
+    private ResponseEntity<List<Role>> findRoleName(@PathVariable String name) throws RoleNotFoundException {
+        List<Role> role = roleService.findRoleName(name);
         return  ResponseEntity
                 .ok()
                 .header("Find Role")

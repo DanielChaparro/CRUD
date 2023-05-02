@@ -21,4 +21,7 @@ public class ClientRequest {
     private String email;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
+
+    @NotBlank
+    private String user;
 }

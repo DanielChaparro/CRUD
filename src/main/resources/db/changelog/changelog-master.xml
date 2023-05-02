@@ -15,5 +15,5 @@
              relativeToChangelogFile="false"/>
      <include file="classpath:db/changelog/changes/20230430182006_added_entity_User_Role.xml"
              relativeToChangelogFile="false"/>
-    <include file="classpath:db/changelog/changes/20230430183000_insert_role_table_changelog.xml"/>
+    <include file="classpath:db/changelog/data/20230430183000_insert_roles_table_changelog.xml"/>
 </databaseChangeLog>

@@ -8,6 +8,7 @@ import com.vass.crud.service.RoleService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -17,6 +18,7 @@ public class RoleServiceImpl implements RoleService {
 
 
     private RoleRepository roleRepository;
+
     private ModelMapper modelMapper;
 
     @Autowired
@@ -26,6 +28,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    @Transactional
     public Role saveRole(RoleRequest roleRequest) {
         if(Objects.isNull(roleRequest)){
             throw new RoleNotFoundException("Error create role");
@@ -36,6 +39,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    @Transactional
     public Role updateRole(Long id, String newName) {
         Role role = roleRepository.findById(id).orElseThrow(()-> new RoleNotFoundException("Role not found"));
         role.setName(newName);
@@ -43,20 +47,23 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Role> listRole() {
         return roleRepository.findAll();
     }
 
     @Override
-    public Role findRoleName(String name) {
-        Role role = roleRepository.findByName(name);
-        if(Objects.isNull(role)){
+    @Transactional(readOnly = true)
+    public List<Role> findRoleName(String name) {
+        List<Role> role = roleRepository.findByName(name);
+        if(role.isEmpty()){
             throw new RoleNotFoundException("Role not found");
         }
         return role;
     }
 
     @Override
+    @Transactional
     public void deleteRole(Long id) {
         roleRepository.deleteById(id);
     }

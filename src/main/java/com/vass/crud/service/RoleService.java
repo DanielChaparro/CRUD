@@ -10,7 +10,7 @@ public interface RoleService {
     Role saveRole(RoleRequest roleRequest);
     Role updateRole(Long id, String newName);
     List<Role> listRole();
-    Role findRoleName(String name);
+    List<Role> findRoleName(String name);
     void deleteRole(Long id);
 
 }

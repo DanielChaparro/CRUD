@@ -16,5 +16,5 @@ public class UserRequest {
     private String password;
 
     @NotBlank
-    private List<Role> role;
+    private String role;
 }

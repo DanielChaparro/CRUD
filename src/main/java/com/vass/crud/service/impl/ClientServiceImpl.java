@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,25 +23,31 @@ import java.util.stream.Collectors;
 public class ClientServiceImpl implements ClientService {
 
     private ClientRepository clientRepository;
+    private UserRepository userRepository;
     private ModelMapper modelMapper;
 
     @Autowired
-    public ClientServiceImpl(ClientRepository clientRepository, ModelMapper modelMapper) {
+    public ClientServiceImpl(ClientRepository clientRepository, UserRepository userRepository, ModelMapper modelMapper) {
         this.clientRepository = clientRepository;
+        this.userRepository = userRepository;
         this.modelMapper = modelMapper;
     }
 
 
     @Override
+    @Transactional
     public Client saveClient(ClientRequest clientRequest) {
         if(Objects.isNull(clientRequest)){
             throw new ClientNotFoundException("Error created cliente");
         }
-        Client client =  modelMapper.map(clientRequest, Client.class);
+        Client client = new Client();
+        client = modelMapper.map(clientRequest, Client.class);
+        client.setUser(userRepository.findByUsername(clientRequest.getUser()));
         return clientRepository.save(client);
     }
 
     @Override
+    @Transactional
     public Client updateClient(Client clientRequest) {
         Client client = clientRepository.findById(clientRequest.getId()).orElseThrow(()-> new ClientNotFoundException("Client not found"));
         client = modelMapper.map(clientRequest, Client.class);
@@ -48,17 +55,20 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Client> listClient() {
         return clientRepository.findAll();
     }
 
 
+    @Transactional(readOnly = true)
     private List<Predicate<Client>> addFilter(Predicate<Client> filter){
         List<Predicate<Client>> filters = new ArrayList<>();
         filters.add(filter);
         return filters;
     }
     @Override
+    @Transactional(readOnly = true)
     public List<Client> findClient(String name, String lastName, String identification, String email, Date birthDate) {
         List<Client> clients =  clientRepository.findAll();
         Predicate<Client> namePredicate = client -> StringUtils.isEmpty(name) || client.getName().contains(name);
@@ -66,18 +76,13 @@ public class ClientServiceImpl implements ClientService {
         Predicate<Client> identificationPredicate = client -> StringUtils.isEmpty(identification) || client.getIdentification().contains(identification);
         Predicate<Client> emailPredicate = client -> StringUtils.isEmpty(email) || client.getEmail().contains(email);
         Predicate<Client> birthDatePredicate = client -> Objects.isNull(birthDate) || client.getBirthDate().equals(birthDate);
-
-        /*                .filter(client -> Objects.isNull(name) || client.getName().equalsIgnoreCase(name))
-                .filter(client -> Objects.isNull(lastName) || client.getLastName().equalsIgnoreCase(lastName))
-                .filter(client -> Objects.isNull(email) || client.getEmail().equalsIgnoreCase(email))
-                .filter(client -> Objects.isNull(birthDate) || client.getBirthDate().equals(birthDate))
-                .collect(Collectors.toList());*/
         return  clients.stream()
                 .filter(namePredicate.and(lastNamePredicate).and(identificationPredicate).and(identificationPredicate).and(emailPredicate).and(birthDatePredicate))
                 .collect(Collectors.toList());
     }
 
     @Override
+    @Transactional
     public void deleteClient(String identification) {
         clientRepository.deleteByIdentification(identification);
     }

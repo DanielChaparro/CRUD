@@ -1,6 +1,7 @@
 package com.vass.crud.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -32,5 +33,9 @@ public class Client implements Serializable {
     @Column(name = "birth_date")
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date birthDate;
+
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private User user;
 
 }
