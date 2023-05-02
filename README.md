@@ -26,5 +26,5 @@ The following endpoints are available for the Client entity:
 ### Database
 The H2 database is used for data storage. The schema is managed using Liquibase. The import.sql file contains initial data to be loaded into the database.
 
-##Issues and Contributions
+## Issues and Contributions
 If you find any issues or want to contribute to the project, please open an issue or create a pull request on the GitHub repository.
